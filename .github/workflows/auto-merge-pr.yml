@@ -5,7 +5,6 @@ jobs:
   merge_pr_if_required:
     name: Merge PR if required
     runs-on: ubuntu-latest
-    if: success()
     steps:
       - name: PR Automation
         uses: devjoes/pr-automation@v0.1.0
