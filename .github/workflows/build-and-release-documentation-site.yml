@@ -24,7 +24,7 @@ jobs:
         run: |
           git checkout -b update-documentation-${GITHUB_BUILD_REF}
           git config --global user.email "bot@features.edward.tech"
-          git config --global user.name "Features Box"
+          git config --global user.name "Features Bot"
           git add .
           git commit -m "Updating to new version of documentation in build ${GITHUB_BUILD_REF}"
           git push --set-upstream origin update-documentation-${GITHUB_BUILD_REF}
@@ -33,5 +33,5 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: Updated documentation to new version as part of build ${{github.run_id}}
-          branch: update-documentation-${{github.run_id}}}
+          branch: update-documentation-${{github.run_id}}
           base: master
