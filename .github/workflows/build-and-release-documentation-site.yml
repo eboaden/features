@@ -19,7 +19,7 @@ jobs:
           npm i
           npm run build
       - name: Clear Existing Docs
-        run: cd ../docs/; rm -rfv *; cd ../documentation-site
+        run: cd ./docs/; rm -rfv *; cd ../documentation-site
       - name: Move new docs to Folder
         run: mv ./build/* ../docs
       - name: Change Branch, Add, Commit and Push Changes
