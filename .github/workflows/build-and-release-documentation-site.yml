@@ -1,0 +1,38 @@
+name: Build & Release Documentation
+on:
+  push:
+    branches:
+      - master
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_BUILD_REF: ${{ github.run_id }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Open Documentation Site Folder
+        run: cd ./documentation-site/
+      - name: Install Packages, Lint, Test and Build
+        run: |
+          npm i
+          npm run lint
+          npm run test
+          npm run build
+      - name: Clear Existing Docs
+        run: cd ../docs/; rm -rfv *; cd ../documentation-site
+      - name: Move new docs to Folder
+        run: mv ./build/* ../docs
+      - name: Change Branch, Add, Commit and Push Changes
+        run: |
+          git checkout -b update-documentation-${GITHUB_BUILD_REF}
+          git add .
+          git commit -m "Updating to new version of documentation in build ${GITHUB_BUILD_REF}"
+          git push
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v2.8.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: Updated documentation to new version as part of build ${{github.run_id}}
+          branch: update-documentation-${{github.run_id}}}
+          base: master
