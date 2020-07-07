@@ -29,3 +29,7 @@ jobs:
           title: Updated documentation to new version as part of build ${{github.run_id}}
           branch: update-documentation-${{github.run_id}}
           base: master
+          commit-message: Update documentation - ${{github.run_id}}
+          committer: Features Bot <bot@features.edward.tech>
+          author: Features Bot <bot@features.edward.tech>
+          labels: auto-merge, documentation, auto-build
