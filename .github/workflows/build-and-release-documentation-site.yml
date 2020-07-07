@@ -23,6 +23,8 @@ jobs:
       - name: Change Branch, Add, Commit and Push Changes
         run: |
           git checkout -b update-documentation-${GITHUB_BUILD_REF}
+          git config --global user.email "bot@features.edward.tech"
+          git config --global user.name "Features Box"
           git add .
           git commit -m "Updating to new version of documentation in build ${GITHUB_BUILD_REF}"
           git push
