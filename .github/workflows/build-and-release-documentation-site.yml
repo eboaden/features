@@ -17,7 +17,7 @@ jobs:
           npm i
           npm run build
       - name: Clear Existing Docs
-        run: cd ./docs/;shopt -s extglob; rm -rfv !("CNAME");shopt -u extglob; cd ../documentation-site
+        run: cd ./docs/; rm -rfv *; echo "features.edward.tech" >> ./CNAME; cd ../documentation-site
       - name: Move new docs to Folder
         run: mv ./documentation-site/build/* ./docs
       - name: Create Pull Request
