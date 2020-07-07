@@ -32,4 +32,4 @@ jobs:
           commit-message: Update documentation - ${{github.run_id}}
           committer: Features Bot <bot@features.edward.tech>
           author: Features Bot <bot@features.edward.tech>
-          labels: auto-merge, documentation, auto-build
+          labels: auto-merge, documentation, auto-build, automated-pr
