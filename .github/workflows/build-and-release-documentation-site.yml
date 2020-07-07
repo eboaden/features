@@ -20,18 +20,10 @@ jobs:
         run: cd ./docs/; rm -rfv *; cd ../documentation-site
       - name: Move new docs to Folder
         run: mv ./documentation-site/build/* ./docs
-      - name: Change Branch, Add, Commit and Push Changes
-        run: |
-          git checkout -b update-documentation-${GITHUB_BUILD_REF}
-          git config --global user.email "bot@features.edward.tech"
-          git config --global user.name "Features Bot"
-          git add .
-          git commit -m "Updating to new version of documentation in build ${GITHUB_BUILD_REF}"
-          git push --set-upstream origin update-documentation-${GITHUB_BUILD_REF}
-          git checkout master
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v2.8.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: Updated documentation to new version as part of build ${{github.run_id}}
           branch: update-documentation-${{github.run_id}}
+          base: master
