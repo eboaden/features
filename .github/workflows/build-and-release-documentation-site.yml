@@ -19,7 +19,7 @@ jobs:
       - name: Clear Existing Docs
         run: cd ./docs/; rm -rfv *; cd ../documentation-site
       - name: Move new docs to Folder
-        run: mv ./documentation-site/build/* ../../docs
+        run: mv ./documentation-site/build/* ./docs
       - name: Change Branch, Add, Commit and Push Changes
         run: |
           git checkout -b update-documentation-${GITHUB_BUILD_REF}
