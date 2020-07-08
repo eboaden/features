@@ -25,7 +25,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v2.8.1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.CUSTOM_TOKEN }}
           title: Updated documentation to new version as part of build ${{github.run_id}}
           branch: update-documentation-${{github.run_id}}
           base: master
