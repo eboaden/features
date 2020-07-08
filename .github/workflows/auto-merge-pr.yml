@@ -1,5 +1,7 @@
 name: PR Automation
 on:
+  schedule:
+    - cron: "* * * * *"
   pull_request:
 jobs:
   merge_pr_if_required:
