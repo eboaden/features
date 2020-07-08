@@ -9,7 +9,7 @@ jobs:
       - name: PR Automation
         uses: devjoes/pr-automation@v0.1.0
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.CUSTOM_TOKEN }}
           autoCloseLabel: automated-pr
           warnClosingAfter: 1h
           autoCloseAfterWarn: 30m
