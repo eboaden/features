@@ -4,7 +4,7 @@ on:
     branches:
       - master
     paths:
-      - "documentation-site/**"
+      - "docs-source/**"
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   GITHUB_BUILD_REF: ${{ github.run_id }}
@@ -15,21 +15,21 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install Packages and Build
         run: |
-          cd ./documentation-site/
+          cd ./docs-source/
           npm i
           npm run build
       - name: Clear Existing Docs
-        run: cd ./docs/; rm -rfv *; echo "features.edward.tech" >> ./CNAME; cd ../documentation-site
+        run: cd ./docs/; rm -rfv *; echo "features.edward.tech" >> ./CNAME; cd ../docs-source
       - name: Move new docs to Folder
-        run: mv ./documentation-site/build/* ./docs
+        run: mv ./docs-source/build/* ./docs
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v2.8.1
         with:
           token: ${{ secrets.CUSTOM_TOKEN }}
-          title: Updated documentation to new version as part of build ${{github.run_id}}
-          branch: update-documentation-${{github.run_id}}
+          title: Updated docs to new version as part of build ${{github.run_id}}
+          branch: update-docs-${{github.run_id}}
           base: master
-          commit-message: Update documentation - ${{github.run_id}}
+          commit-message: Update Docs - ${{github.run_id}}
           committer: Features Bot <bot@features.edward.tech>
           author: Features Bot <bot@features.edward.tech>
           labels: auto-merge, documentation, auto-build, automated-pr
