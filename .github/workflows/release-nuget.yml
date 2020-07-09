@@ -15,6 +15,9 @@ jobs:
       - name: Pack Nuget Package
         run: |
           cd ./packages/nuget/Features
-          dotnet pack /p:Version=${GITHUB_REF##*/} -o .
+          export PACKAGE_VERSION=${GITHUB_REF##*/}
+          PACKAGE_VERSION=${PACKAGE_VERSION#?}
+          echo ::set-output name=PACKAGE_VERSION::$(echo $PACKAGE_VERSION)
+          dotnet pack /p:Version=${PACKAGE_VERSION} -o .
       - name: Push to Nuget
-        run: dotnet nuget push ./pakcages/nuget/Features/Features.${GITHUB_REF##*/}.nupkg -k ${NUGET_TOKEN} -s https://api.nuget.org/v3/index.json
+        run: dotnet nuget push ./pakcages/nuget/Features/Features.${GITHUB_REF##*/}.nupkg -k ${PACKAGE_VERSION} -s https://api.nuget.org/v3/index.json
