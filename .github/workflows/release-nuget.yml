@@ -12,11 +12,10 @@ jobs:
       - uses: actions/checkout@v2
       - name: Setup Dotnet Runtime
         run: sudo apt-get install -y dotnet-runtime-3.1
-      - name: Pack Nuget Package
+      - name: Pack and Push Nuget Package
         run: |
           cd ./packages/nuget/Features
           export PACKAGE_VERSION=${GITHUB_REF##*/}
           PACKAGE_VERSION=${PACKAGE_VERSION#?}
           dotnet pack /p:Version=${PACKAGE_VERSION} -o .
-      - name: Push to Nuget
-        run: dotnet nuget push ./pakcages/nuget/Features/Features.${GITHUB_REF##*/}.nupkg -k ${PACKAGE_VERSION} -s https://api.nuget.org/v3/index.json
+          dotnet nuget push Features.${PACKAGE_VERSION}.nupkg -k ${NUGET_TOKEN} -s https://api.nuget.org/v3/index.json
