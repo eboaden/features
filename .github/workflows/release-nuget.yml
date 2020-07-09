@@ -1,0 +1,20 @@
+name: Publish Nuget Package
+on:
+  release:
+    types:
+      - created
+env:
+  NUGET_TOKEN: ${{ secrets.NUGET_TOKEN }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Dotnet Runtime
+        run: sudo apt-get install -y dotnet-runtime-3.1
+      - name: Pack Nuget Package
+        run: |
+          cd ./packages/nuget/Features
+          dotnet pack /p:Version=${GITHUB_REF##*/} -o .
+      - name: Push to Nuget
+        run: dotnet nuget push ./pakcages/nuget/Features/Features.${GITHUB_REF##*/}.nupkg -k ${NUGET_TOKEN} -s https://api.nuget.org/v3/index.json
