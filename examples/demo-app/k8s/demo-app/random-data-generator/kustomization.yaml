@@ -1,0 +1,6 @@
+resources:
+- deployment.yaml
+- service.yaml
+commonLabels:
+  allow-from-ingress: "true"
+  app: demo-app

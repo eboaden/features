@@ -1,0 +1,23 @@
+resources:
+  - ingress.yaml
+  - config.yaml
+bases:
+  - random-data-generator
+
+namespace: features-demo-app
+
+vars:
+  - name: Values.config.spec.domain
+    objref:
+      apiVersion: v1
+      kind: ConfigMap
+      name: features-demo-app-config
+    fieldref:
+      fieldpath: data.domain
+  - name: Values.config.spec.random-data-image
+    objref:
+      apiVersion: v1
+      kind: ConfigMap
+      name: features-demo-app-config
+    fieldref:
+      fieldpath: data.random-data-image

@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: random-data-generator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: random-data-generator
+  template:
+    spec:
+      containers:
+        - name: random-data-generator
+          image: eboaden/features-demo-random-generator:latest
+          resources:
+            limits:
+              memory: "150Mi"
+              cpu: "100m"
+            requests:
+              memory: "100Mi"
+              cpu: "50m"
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            runAsUser: 33
+          ports:
+            - containerPort: 5000
+          readinessProbe:
+            httpGet:
+              path: /random-name
+              port: 5000
+            initialDelaySeconds: 3
+            periodSeconds: 30
+            timeoutSeconds: 2
+          livenessProbe:
+            httpGet:
+              path: /random-name
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            timeoutSeconds: 2
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 50
+              podAffinityTerm:
+                topologyKey: "kubernetes.io/hostname"
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - random-data-generator

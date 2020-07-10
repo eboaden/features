@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: features-demo-app-config
+data:
+  domain: features-demo-app.retail-azure.js-devops.co.uk
+  random-data-image: eboaden/features-demo-random-generator:latest
