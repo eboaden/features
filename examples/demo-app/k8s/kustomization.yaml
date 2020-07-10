@@ -1,0 +1,5 @@
+bases:
+  - ./cluster-setup
+  - ./features
+  - ./demo-app
+  - ./namespace-setup
