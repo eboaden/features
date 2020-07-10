@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: features-demo-app-config
 data:
-  domain: features-demo-app.retail-azure.js-devops.co.uk
+  domain: ''
   random-data-image: eboaden/features-demo-random-generator:latest
