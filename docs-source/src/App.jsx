@@ -1,15 +1,6 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import {
-  makeStyles,
-  Drawer,
-  Toolbar,
-  List,
-  ListItem,
-  Divider,
-  ListItemText,
-  Link,
-} from '@material-ui/core'
+import { makeStyles, Toolbar } from '@material-ui/core'
 import GettingStarted from './components/GettingStarted'
 import Header from './components/Header'
 import Navigation from './components/Navigation'
