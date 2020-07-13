@@ -5,9 +5,10 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import App from './App'
 
 ReactDOM.render(
-  <Router>
+    <Router>
     <CssBaseline />
     <App />
-  </Router>,
+  </Router>
+  ,
   document.getElementById('root'),
 )
