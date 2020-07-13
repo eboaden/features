@@ -19,7 +19,7 @@ jobs:
           npm i
           npm run build
       - name: Clear Existing Docs
-        run: cd ./docs/; rm -rfv *; echo "features.edward.tech" >> ./CNAME; cd ../docs-source
+        run: cd ./docs/; rm -rfv *; cd ../docs-source
       - name: Move new docs to Folder
         run: mv ./docs-source/build/* ./docs
       - name: Create Pull Request
