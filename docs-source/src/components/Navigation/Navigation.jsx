@@ -5,11 +5,10 @@ import {
   Toolbar,
   List,
   ListItem,
-  ListItemIcon,
   Divider,
   ListItemText,
+  Link,
 } from '@material-ui/core'
-import { MoveToInbox as InboxIcon, Mail as MailIcon } from '@material-ui/icons'
 
 const drawerWidth = 240
 
@@ -28,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  link: {
+    textDecoration: 'none',
+  },
 }))
 
 const Navigation = () => {
@@ -43,20 +45,24 @@ const Navigation = () => {
       <Toolbar />
       <div className={classes.drawerContainer}>
         <List>
+          <Link
+            href="https://github.com/eboaden"
+            color="inherit"
+            className={classes.link}
+          >
+            <ListItem button>
+              <ListItemText primary="Getting Started" />
+            </ListItem>
+          </Link>
           <ListItem button>
-            <ListItemText primary="Getting Started" />
+            <ListItemText primary="Setting up the Demo App" />
           </ListItem>
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <ListItem button>
+            <ListItemText primary="Nuget Package" />
+          </ListItem>
         </List>
       </div>
     </Drawer>

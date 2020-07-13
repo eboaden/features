@@ -1,18 +1,57 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import HomePage from './components/HomePage'
+import {
+  makeStyles,
+  Drawer,
+  Toolbar,
+  List,
+  ListItem,
+  Divider,
+  ListItemText,
+  Link,
+} from '@material-ui/core'
+import GettingStarted from './components/GettingStarted'
 import Header from './components/Header'
 import Navigation from './components/Navigation'
 
-function App() {
+const drawerWidth = 240
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  drawerContainer: {
+    overflow: 'auto',
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+  },
+  link: {
+    textDecoration: 'none',
+  },
+}))
+
+const App = () => {
+  const classes = useStyles()
   return (
-    <>
+    <div className={classes.root}>
       <Header />
       <Navigation />
-      <Switch>
-        <Route path="/" exact component={HomePage} />
-      </Switch>
-    </>
+      <div className={classes.content}>
+        <Toolbar />
+        <Switch>
+          <Route path="/" exact component={GettingStarted} />
+        </Switch>
+      </div>
+    </div>
   )
 }
 
