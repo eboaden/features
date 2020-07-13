@@ -15,6 +15,9 @@ jobs:
       - name: Pack and Push Nuget Package
         run: |
           cd ./packages/nuget/Features
+          dotnet restore "Features/Features.csproj"
+          dotnet restore "Features.Tests/Features.Tests.csproj"
+          dotnet test "Features.Tests/Features.Tests.csproj" -c Release
           export PACKAGE_VERSION=${GITHUB_REF##*/}
           PACKAGE_VERSION=${PACKAGE_VERSION#?}
           dotnet pack /p:Version=${PACKAGE_VERSION} -o .

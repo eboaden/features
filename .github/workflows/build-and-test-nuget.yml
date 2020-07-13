@@ -1,0 +1,19 @@
+name: Test Nuget Package
+on:
+  push:
+    paths:
+      - "packages/nuget/**"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Dotnet Runtime
+        run: sudo apt-get install -y dotnet-runtime-3.1
+      - name: Test Nuget Package
+        run: |
+          cd ./packages/nuget/Features
+          dotnet restore "Features/Features.csproj"
+          dotnet restore "Features.Tests/Features.Tests.csproj"
+          dotnet test "Features.Tests/Features.Tests.csproj" -c Release
+          dotnet pack /p:Version=1.0.0-beta -o .
