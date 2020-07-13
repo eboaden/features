@@ -15,6 +15,8 @@ namespace Features.Tests
         private readonly Mock<INamespaceProvider> _mockNamespaceProvider;
         private readonly Mock<IKubernetesClientProvider> _mockKubernetesClientProvider;
         private readonly Mock<IKubernetes> _mockKubernetesClient;
+        private const string TestFeatureName = "test-feature";
+        private const string TestNamespace = "test-ns";
 
         public FeaturesClientTests()
         {
@@ -27,11 +29,11 @@ namespace Features.Tests
         public void CheckFeatureIsActiveWhenFeatureNameIsProvided()
         {
             
-            MockClientCall(_mockNamespaceProvider, _mockKubernetesClient, "test-ns", "test-feature", true);
+            MockClientCall(_mockNamespaceProvider, _mockKubernetesClient, TestNamespace, TestFeatureName, true);
 
             var featuresClient = new FeaturesClient(namespaceProvider: _mockNamespaceProvider.Object,
                 clientProvider: _mockKubernetesClientProvider.Object);
-            var featureResponse = featuresClient.CheckFeatureIsActive("test-feature");
+            var featureResponse = featuresClient.CheckFeatureIsActive(TestFeatureName);
             _mockKubernetesClient.Verify();
             Assert.True(featureResponse);
         }
@@ -39,11 +41,11 @@ namespace Features.Tests
         [Fact]
         public void CheckFeatureIsNotActiveWhenFeatureNameIsProvided()
         {
-            MockClientCall(_mockNamespaceProvider, _mockKubernetesClient, "test-ns", "test-feature", false);
+            MockClientCall(_mockNamespaceProvider, _mockKubernetesClient, TestNamespace, TestFeatureName, false);
 
             var featuresClient = new FeaturesClient(namespaceProvider: _mockNamespaceProvider.Object,
                 clientProvider: _mockKubernetesClientProvider.Object);
-            var featureResponse = featuresClient.CheckFeatureIsActive("test-feature");
+            var featureResponse = featuresClient.CheckFeatureIsActive(TestFeatureName);
             _mockKubernetesClient.Verify();
             Assert.False(featureResponse);
         }
@@ -51,7 +53,7 @@ namespace Features.Tests
         [Fact]
         public void CheckFeatureIsNotActiveWhenFeatureNameProvidedDoesNotExist()
         {
-            MockClientCall(_mockNamespaceProvider, _mockKubernetesClient, "test-ns", "test-feature", false);
+            MockClientCall(_mockNamespaceProvider, _mockKubernetesClient, TestNamespace, TestFeatureName, false);
 
             var featuresClient = new FeaturesClient(namespaceProvider: _mockNamespaceProvider.Object,
                 clientProvider: _mockKubernetesClientProvider.Object);
