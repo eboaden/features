@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - "packages/nuget/**"
+      - ".github/workflows/build-and-test-nuget.yml"
 jobs:
   build:
     runs-on: ubuntu-latest
