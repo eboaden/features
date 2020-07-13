@@ -1,6 +1,7 @@
 import React from 'react'
-import { AppBar, Toolbar, Typography, makeStyles } from '@material-ui/core'
+import { AppBar, Toolbar, Typography, makeStyles, Link, Button } from '@material-ui/core'
 import ReleaseVersion from '../ReleaseVersion'
+import { GitHub } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -25,7 +26,10 @@ const Header = () => {
           </div>
           <div>
             <Typography variant="h6">
-              Github &nbsp;
+              <Button color="inherit">
+                <GitHub />
+              </Button>
+              &nbsp;
               <ReleaseVersion />
             </Typography>
           </div>
