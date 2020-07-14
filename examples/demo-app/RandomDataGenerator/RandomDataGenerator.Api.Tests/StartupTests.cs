@@ -13,7 +13,7 @@ namespace RandomDataGenerator.Api.Tests
         public void WhenNamespaceFileExistsNamespaceContainedInThatFileIsReturned()
         {
             const string fileNamespace = "file-ns";
-            const string namespaceFilePath = "namespace.txt";
+            var namespaceFilePath = Path.GetTempFileName();
             File.WriteAllText(namespaceFilePath, fileNamespace);
             var namespaceProvider = new NamespaceProvider(TestNamespace, namespaceFilePath);
             var ns = namespaceProvider.GetNamespace();
