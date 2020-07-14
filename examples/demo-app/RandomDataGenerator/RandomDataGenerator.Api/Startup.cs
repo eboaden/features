@@ -1,16 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Features;
+using Features.Providers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace RandomDataGenerator.Api
 {
@@ -27,7 +21,7 @@ namespace RandomDataGenerator.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton(_ =>new FeaturesClient("features-demo-app","demo-app"));
+            services.AddSingleton(_ =>  new FeaturesClient("demo-app", namespaceProvider: new NamespaceProvider("features-demo-app")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

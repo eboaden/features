@@ -20,7 +20,7 @@ namespace RandomDataGenerator.Api.Controllers
         [HttpGet]
         public string Get()
         {
-            return _featuresClient.GetFeature("change-name-to-city") ? $"City: {_faker.Address.City()}": $"Name: {_faker.Name.FullName()}";
+            return _featuresClient.CheckFeatureIsActive("change-name-to-city") ? $"City: {_faker.Address.City()}": $"Name: {_faker.Name.FullName()}";
         }
     }
 }
