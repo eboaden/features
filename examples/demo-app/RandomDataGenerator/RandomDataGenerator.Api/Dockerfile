@@ -8,11 +8,15 @@ COPY RandomDataGenerator.sln .
 
 COPY RandomDataGenerator.Api/RandomDataGenerator.Api.csproj RandomDataGenerator.Api/
 RUN dotnet restore "RandomDataGenerator.Api/RandomDataGenerator.Api.csproj"
+COPY RandomDataGenerator.Api.Tests/RandomDataGenerator.Api.Tests.csproj RandomDataGenerator.Api.Tests/
+RUN dotnet restore "RandomDataGenerator.Api.Tests/RandomDataGenerator.Api.Tests.csproj"
 
 FROM restore as build
 WORKDIR /src
 
 COPY RandomDataGenerator.Api RandomDataGenerator.Api/
+COPY RandomDataGenerator.Api.Tests RandomDataGenerator.Api.Tests
+RUN dotnet test "RandomDataGenerator.Api.Tests/RandomDataGenerator.Api.Tests.csproj" -c Release
 
 RUN dotnet publish "RandomDataGenerator.Api/RandomDataGenerator.Api.csproj" -c Release -o /app/publish
 

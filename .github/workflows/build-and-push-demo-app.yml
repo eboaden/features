@@ -1,0 +1,33 @@
+name: Build and Push Demo App
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "examples/demo-app/RandomDataGenerator/**"
+      - ".github/workflows/build-and-push-demo-app.yml"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get GITHUB short SHA
+        id: short-sha
+        run: echo "::set-output name=sha8::$(echo ${GITHUB_SHA} | cut -c1-8)"
+      - name: Autenticate with Docker CLI
+        run: echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        env:
+          DOCKER_USERNAME: "eboaden"
+          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+      - name: Build Demo App
+        run: |
+          cd ./examples/demo-app/RandomDataGenerator
+          docker build -t eboaden/features-demo-random-generator:latest -t eboaden/features-demo-random-generator:$SHORT_SHA -f ./RandomDataGenerator.Api/Dockerfile .
+        env: 
+          SHORT_SHA: ${{ steps.short-sha.outputs.sha8 }}
+      - name: Push to docker registry
+        run: |
+          docker push eboaden/features-demo-random-generator:latest
+          docker push eboaden/features-demo-random-generator:$SHORT_SHA
+        env: 
+          SHORT_SHA: ${{ steps.short-sha.outputs.sha8 }}

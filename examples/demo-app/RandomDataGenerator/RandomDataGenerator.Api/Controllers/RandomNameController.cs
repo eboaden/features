@@ -8,10 +8,10 @@ namespace RandomDataGenerator.Api.Controllers
     [Route("random-name")]
     public class RandomNameController : ControllerBase
     {
-        private readonly FeaturesClient _featuresClient;
+        private readonly IFeaturesClient _featuresClient;
         private readonly Faker _faker;
 
-        public RandomNameController(FeaturesClient featuresClient)
+        public RandomNameController(IFeaturesClient featuresClient)
         {
             _featuresClient = featuresClient;
             _faker = new Faker();
@@ -20,7 +20,7 @@ namespace RandomDataGenerator.Api.Controllers
         [HttpGet]
         public string Get()
         {
-            return _featuresClient.GetFeature("change-name-to-city") ? $"City: {_faker.Address.City()}": $"Name: {_faker.Name.FullName()}";
+            return _featuresClient.CheckFeatureIsActive("change-name-to-city") ? $"City: {_faker.Address.City()}": $"Name: {_faker.Name.FullName()}";
         }
     }
 }

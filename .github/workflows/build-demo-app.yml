@@ -1,0 +1,16 @@
+name: Build Demo App
+on:
+  push:
+    paths:
+      - "examples/demo-app/RandomDataGenerator/**"
+      - ".github/workflows/build-demo-app.yml"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Demo App
+        run: |
+          cd ./examples/demo-app/RandomDataGenerator
+          docker build -t eboaden/features-demo-random-generator:build-test -f ./RandomDataGenerator.Api/Dockerfile .
+
