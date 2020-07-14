@@ -14,8 +14,11 @@ jobs:
         run: sudo apt-get install -y dotnet-runtime-3.1
       - name: Pack and Push Nuget Package
         run: |
-          cd ./packages/nuget/Features
+          cd ./packages/nuget
+          dotnet restore "Features/Features.csproj"
+          dotnet restore "Features.Tests/Features.Tests.csproj"
+          dotnet test "Features.Tests/Features.Tests.csproj" -c Release
           export PACKAGE_VERSION=${GITHUB_REF##*/}
           PACKAGE_VERSION=${PACKAGE_VERSION#?}
-          dotnet pack /p:Version=${PACKAGE_VERSION} -o .
+          dotnet pack "Features/Features.csproj" /p:Version=${PACKAGE_VERSION} -o .
           dotnet nuget push Features.${PACKAGE_VERSION}.nupkg -k ${NUGET_TOKEN} -s https://api.nuget.org/v3/index.json
