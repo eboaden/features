@@ -1,0 +1,17 @@
+name: Lint, Test and Build Documentation
+on:
+  push:
+    paths:
+      - "docs-source/**"
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Packages, Lint, Test and Build
+        run: |
+          cd ./docs-source/
+          npm i
+          npm run lint
+          npm run test
+          npm run build
