@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Features.Models;
 using Features.Providers;
 using k8s;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json.Linq;
 
 namespace Features
@@ -22,13 +25,37 @@ namespace Features
             _application = application ?? "default";
         }
 
-        public bool CheckFeatureIsActive(string featureName)
+        public bool CheckCustomFeature<T>(Func<T, bool> validator) where T: CustomObjectSpec
         {
             var json = _client.ListNamespacedCustomObject("edward.tech", "v1", _namespace, "features",
                 labelSelector: $"app={_application}").ToString();
             var featuresList = JObject.Parse(json)["items"].ToObject<List<CustomObject>>();
-            var feature = featuresList.Find(f => f.Spec.Name == featureName);
-            return feature != null && feature.Spec.Active;
+            return featuresList.Select(j => j.Spec).Cast<T>().Any(validator);
         }
+
+        public bool CheckFeatureIsActive(string featureName)
+        {
+            return this.CheckCustomFeature<CustomObjectSpec>(i => i.Name == featureName && i.Active);
+        }
+
+
+        public bool CheckFeatureAttributes(string active)
+        {
+            return this.CheckCustomFeature<CustomObjectSpec>(i => i.Attributes.Contains(active));
+        }
+    }
+
+    public class JoeCustomObjectSpec:CustomObjectSpec
+    {
+        public JoeCustomObjectSpec(IHttpContextAccessor contextAccessor)
+        {
+
+        }
+
+        public bool Check()
+        {
+
+        }
+        public int Coolness { get; set; }
     }
 }
