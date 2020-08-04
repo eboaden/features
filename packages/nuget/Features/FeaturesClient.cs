@@ -30,7 +30,7 @@ namespace Features
             var json = _client.ListNamespacedCustomObject("edward.tech", "v1", _namespace, "features",
                 labelSelector: $"app={_application}").ToString();
             var featuresList = JObject.Parse(json)["items"].ToObject<List<CustomObject>>();
-            return featuresList.Select(j => j.Spec).Cast<T>().Any(validator);
+            return featuresList.Select(j => j.Spec).Cast<T>().Any(validator);//you cant actually cast up like this - but you get the idea
         }
 
         public bool CheckFeatureIsActive(string featureName)
