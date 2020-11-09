@@ -1,0 +1,5 @@
+resources:
+  - namespace.yaml
+  - role-config.yaml
+
+namespace: features-attributes-demo

@@ -1,0 +1,14 @@
+apiVersion: "edward.tech/v1"
+kind: Feature
+metadata:
+  name: change-name-to-city
+  labels:
+    app: demo-app
+spec:
+  name: change-name-to-city
+  active: true
+  attributes:
+    - name: userId
+      restriction: whitelist
+      values:
+        - demo.user@features.edward.tech

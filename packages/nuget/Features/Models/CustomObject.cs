@@ -21,6 +21,14 @@ namespace Features.Models
     {
         [JsonProperty("active")] public bool Active { get; set; }
         [JsonProperty("name")] public string Name { get; set; }
+        [JsonProperty("attributes")] public  CustomObjectSpecAttributes[] Attributes { get; set; }
+    }
+
+    public class CustomObjectSpecAttributes
+    {
+        public string Name { get; set; }
+        public string Restriction { get; set; }
+        public string[] Values { get; set; }
     }
 
     public class CustomObjectLabels

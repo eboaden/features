@@ -1,0 +1,4 @@
+resources:
+  - change-name-to-city.yaml
+
+namespace: features-attributes-demo

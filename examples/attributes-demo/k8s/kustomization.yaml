@@ -1,0 +1,4 @@
+bases:
+  - ./cluster-setup
+  - ./features
+  - ./namespace-setup
