@@ -1,0 +1,21 @@
+---
+version: 2
+updates:
+  - package-ecosystem: nuget
+    pull-request-branch-name:
+      separator: "-"
+    directory: "/packages/nuget/"
+    schedule:
+      interval: daily
+  - package-ecosystem: nuget
+    pull-request-branch-name:
+      separator: "-"
+    directory: "/examples/demo-app/"
+    schedule:
+      interval: daily
+  - package-ecosystem: npm
+    pull-request-branch-name:
+      separator: "-"
+    directory: "/docs-source/"
+    schedule:
+      interval: daily
