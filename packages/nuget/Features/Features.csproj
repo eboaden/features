@@ -6,6 +6,6 @@
         <Authors>Edward Boaden</Authors>
     </PropertyGroup>
     <ItemGroup>
-      <PackageReference Include="KubernetesClient" Version="4.0.11" />
+      <PackageReference Include="KubernetesClient" Version="5.0.4" />
     </ItemGroup>
 </Project>
